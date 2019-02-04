@@ -13,7 +13,7 @@ class Alerts {
     
     
     
-    static func ShowAlert(Interval : Int ,  AlertTitle : String , AlertMessage : String  , AlertActionTitles : [String] ,  AlertTextTitles : [String]  , alertViewController : UIViewController  , CompletionHandler : @escaping ( String , [String:String] )-> Void)  {
+    static func ShowAlertAdvanced(Interval : Int ,  AlertTitle : String , AlertMessage : String  , AlertActionTitles : [String] ,  AlertTextTitles : [String]  , alertViewController : UIViewController  , CompletionHandler : @escaping ( String , [String:String] )-> Void)  {
         
         let alert = UIAlertController(title: AlertTitle, message: AlertMessage, preferredStyle: .alert)
         for textPlaceHolder in AlertTextTitles { alert.addTextField { $0.placeholder = textPlaceHolder} }
@@ -37,17 +37,37 @@ class Alerts {
     
     
     
+    
+    static func ShowAlertBasic( Interval : Int , Msg : String ,  VC : UIViewController ){
+        
+        let alert = UIAlertController(title: Msg, message: "", preferredStyle: .alert)
+        let AlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(AlertAction)
+        
+        
+        if alert.actions.count > 0 {
+            if Interval <= 0  { VC.present(alert,animated:true) }
+            else {
+                VC.present(alert,animated:true,completion:
+                    {Timer.scheduledTimer(withTimeInterval: TimeInterval(Interval) , repeats:false, block: {_ in VC.dismiss(animated: true, completion: nil) })})
+            }
+        }
+    }
+    
+    
+    
+    
     static func ShowActionSheet( Interval : Int , AlertTitle : String , AlertMessage : String  , AlertActionTitles : [String] ,   alertViewController : UIViewController  , CompletionHandler : @escaping ( String)-> Void)  {
         
         let alert = UIAlertController(title: AlertTitle, message: AlertMessage, preferredStyle: .actionSheet)
         
-         AlertActionTitles.map {actionTitle in
+        AlertActionTitles.map {actionTitle in
             let AlertAction = UIAlertAction(title: actionTitle, style: .default, handler: { _ in
                 CompletionHandler( actionTitle )})
             alert.addAction(AlertAction)
         }
         if alert.actions.count > 0 {
-            if Interval < 0  { alertViewController.present(alert,animated:true) }
+            if Interval <= 0  { alertViewController.present(alert,animated:true) }
             else {
                 alertViewController.present(alert,animated:true,completion:
                     {Timer.scheduledTimer(withTimeInterval: TimeInterval(Interval) , repeats:false, block: {_ in alertViewController.dismiss(animated: true, completion: nil) })})
@@ -57,3 +77,4 @@ class Alerts {
     
     
 }
+

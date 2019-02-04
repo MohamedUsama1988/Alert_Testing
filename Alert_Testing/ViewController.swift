@@ -9,15 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        Alerts.ShowAlertBasic(Interval: 1, Msg: "Welcom To My Alert API", VC: self)
+    }
+    
+    
     @IBAction func BasicAlert(_ sender: UIButton) {
-        Alerts.ShowAlert(Interval: 0, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" ], AlertTextTitles: [], alertViewController: self) { (Pressed, _) in
+        Alerts.ShowAlertAdvanced(Interval: 0, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" ], AlertTextTitles: [], alertViewController: self) { (Pressed, _) in
             print(Pressed)
         }
     }
     
     @IBAction func BasicAlertWithTimer(_ sender: UIButton) {
-        Alerts.ShowAlert(Interval: 1, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" , "Don't care" ], AlertTextTitles: [], alertViewController: self) { (Pressed, _) in
+        Alerts.ShowAlertAdvanced(Interval: 1, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" , "Don't care" ], AlertTextTitles: [], alertViewController: self) { (Pressed, _) in
             print(Pressed)
         }
         
@@ -25,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func AlertWithTextField(_ sender: UIButton) {
-        Alerts.ShowAlert(Interval: 0, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" , "Don't care" ], AlertTextTitles: ["Name" , "Age"], alertViewController: self) { (Pressed, data) in
+        Alerts.ShowAlertAdvanced(Interval: 0, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" , "Cancel" , "Don't care" ], AlertTextTitles: ["Name" , "Age"], alertViewController: self) { (Pressed, data) in
             print(Pressed , "   " , data)
         }
     }
@@ -33,7 +38,7 @@ class ViewController: UIViewController {
     @IBAction func ActionSheet(_ sender: UIButton) {
         Alerts.ShowActionSheet(Interval: 0, AlertTitle: "Title", AlertMessage: "Message", AlertActionTitles: ["OK" ,"Cancel" , "Don't care" ], alertViewController: self) { (Pressed) in
             print(Pressed )
-
+            
         }
     }
     
