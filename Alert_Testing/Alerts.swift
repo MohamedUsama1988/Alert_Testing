@@ -47,7 +47,7 @@ class Alerts {
             alert.addAction(AlertAction)
         }
         if alert.actions.count > 0 {
-            if Interval <= 0  { alertViewController.present(alert,animated:true) }
+            if Interval < 0  { alertViewController.present(alert,animated:true) }
             else {
                 alertViewController.present(alert,animated:true,completion:
                     {Timer.scheduledTimer(withTimeInterval: TimeInterval(Interval) , repeats:false, block: {_ in alertViewController.dismiss(animated: true, completion: nil) })})
